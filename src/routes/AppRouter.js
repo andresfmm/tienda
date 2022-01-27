@@ -77,6 +77,15 @@ export const AppRouter = () => {
                            </PrivateRoutes>
                        }
                     />
+
+                    <Route  
+                       path="/registro"
+                       element={
+                           <PrivateRoutes>
+                               <Login/>
+                           </PrivateRoutes>
+                       }
+                    />
                     
             </Routes>
         </BrowserRouter>

@@ -3,8 +3,8 @@ import { Navigate } from 'react-router-dom';
 
 export const PublicRoutes = ({ children }) => {
   
-   const da = 0;
+   const  da = false;
    return da
-          ? <Navigate to="/app" /> 
+          ? <Navigate to="/app" />
           : children;
 };

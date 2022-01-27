@@ -2,6 +2,7 @@
 import { types } from '../types/types';
 import { finishLoading, startLoading, setError, removeError  } from './uiAction';
 import requestApi from '../api/requestsApi';
+import { keyLStorageName } from '../env/env';
 
 
 
@@ -21,7 +22,7 @@ export const loginEmailPassword = ( {email, password} ) => {
           }else{
               dispatch( removeError() )
           }
-          await localStorage.setItem('tokenQih', JSON.stringify(data) );
+          await localStorage.setItem(keyLStorageName(), JSON.stringify(data) );
           dispatch( setLogin(data) )
           
          
@@ -39,13 +40,13 @@ export const startLogOut = () => {
         const data = {
             token: null,
             logged: false,
-            status: '',
+            rol: '',
             usuario: {
                 nombre: '',
                 email: ''
             }
         }
-        await localStorage.setItem('tokenQih', JSON.stringify(data) );
+        await localStorage.setItem(keyLStorageName(), JSON.stringify(data) );
         dispatch( logout(data) )
         dispatch( finishLoading() )
       }

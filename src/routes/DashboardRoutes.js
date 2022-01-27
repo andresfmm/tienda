@@ -3,6 +3,7 @@ import {  Routes, Route } from 'react-router-dom';
 
 
 import { Navbar } from '../components/navbar/Navbar';
+import { Index } from '../screens/Index/Index';
 import { Test } from '../screens/Test/Test';
 
 
@@ -14,7 +15,8 @@ export const DashboardRoutes = () => {
              
              
               <Routes>
-                  <Route exact path="/app" element={ <Test />} />
+                  <Route exact path="/app" element={ <Index />} />
+                  {/* <Route exact path="/app" element={ <Test />} /> */}
               </Routes>
            </div>   
     )

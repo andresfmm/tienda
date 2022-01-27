@@ -1,65 +1,52 @@
 import React from 'react';
-import { useForm } from '../../hooks/useForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { registrarUsuario } from '../../actions/registerActions';
 import { NavbarLogin } from '../../components/navbar/NavbarLogin';
-import { loginEmailPassword } from '../../actions/authActions';
-import { Preload } from '../../components/preloads/Preload';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useForm } from '../../hooks/useForm';
+
+export const Registro = () => {
 
 
-
-
-
-export const Login = () => {
-    
     const dispatch = useDispatch()
 
 
     const { loading, msgError } = useSelector( state => state.ui )
 
-
-
     
-
     const [ formState, handleInputName ] = useForm({
         username: '',
+        email: '',
         password: ''
     });
 
 
-    const { username, password } = formState;
-
-    const login = (event) => {
+    const registro = (event) => {
         event.preventDefault();
-        dispatch( loginEmailPassword( { email: username, password: password } ) )
+
+        dispatch( registrarUsuario( { username: username,  email: email, password: password } ) )
     }
 
+  return (
+      <>
+         <NavbarLogin/>
 
-    if (loading) {
-        return (
-            <Preload/>
-        )
-    }
-
-
-    return (
-        <>
-
-           <NavbarLogin/>
-            <div className="container">
+         <div className="container">
                 <div className="row" style={{"justifyContent": "center"}}>
-                    <div className="col-md-6">
+                    <div className="col-md-6 ">
                         <div className="login-form bg-light mt-5 p-4">
-                            <form className="row g-3" onSubmit={login} >
-                                <h4>Bienvenido</h4>
+                            <form className="row g-3" onSubmit={registro}>
+                                <h4>Registrarme</h4>
                                 <div className="col-12">
-                                    <input type="text" onChange={handleInputName} name="username" className="form-control" placeholder="Usuario" required />
+                                    <input type="text" onChange={handleInputName} name="username" className="form-control" placeholder="Nombre" required />
                                 </div>
                                 <div className="col-12">
-                                    <input type="password" onChange={handleInputName} name="password" className="form-control" placeholder="Password" required autoComplete="on"/>
+                                    <input type="text" onChange={handleInputName} name="email" className="form-control" placeholder="Email" required />
                                 </div>
                                 <div className="col-12">
-                                    <button type="submit" className="btn btn-dark float-end">Login</button>
+                                    <input type="password" onChange={handleInputName} name="password" className="form-control" placeholder="Password" required />
+                                </div>
+                                <div className="col-12">
+                                    <button type="submit" className="btn btn-dark float-end">Registrarme</button>
                                 </div>
                             </form>
                             {
@@ -79,6 +66,7 @@ export const Login = () => {
                     </div>
                 </div>
             </div>
-        </>
-    )
-}
+      
+      </>
+  )
+};
