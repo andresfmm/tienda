@@ -1,0 +1,10 @@
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+
+export const PublicRoutes = ({ children }) => {
+  
+   const da = 0;
+   return da
+          ? <Navigate to="/app" /> 
+          : children;
+};
