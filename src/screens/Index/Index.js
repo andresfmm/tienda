@@ -25,7 +25,7 @@ export const Index = () => {
   
   return (
       <>
-         <h1>estamos en index</h1>
+         <h1 className='titulo-productos-tienda'>Productos</h1>
 
          <div className='container'>
               <CardShop data={datacard}/>
