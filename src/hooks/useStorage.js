@@ -24,13 +24,20 @@ export const useStorage = () => {
 
            if ( LsStorage.length > 0) {
                  
+                  let exist = false;
                   for (let i = 0; i < LsStorage.length; i++) {
                         if ( LsStorage[i].code == data.code ) {
                               actualizarLocasStorageSumar(i, data)
-                        }else{
-                            saveLocalStorage(data);
+                              exist = true;
                         }
                   }
+
+                  if (!exist) {
+                        saveLocalStorage(data)
+                        console.log('choco')
+                  }
+                  
+                  
 
            }else{
                  
