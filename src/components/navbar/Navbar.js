@@ -28,6 +28,7 @@ export const Navbar = () => {
     const handleLogOut = () => {
         dispatch( startLogOut() );
     }
+    
 
 
     return (
@@ -62,11 +63,13 @@ export const Navbar = () => {
                     </li> */}
                     
                 </ul>
-
+                 <li  className="nav-link icon-carrito"  data-bs-toggle="modal" data-bs-target="#modapProductos">
+                      <i className="bi bi-cart3"></i>
+                 </li>
                 <ul className="navbar-nav text-center ">
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle navbar-brand txt-negro-oficial text-capitalize txt-navbar-links" href="/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {nameuser}
+                            {/* {nameuser} */}
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li onClick={handleLogOut}><a className="dropdown-item text-capitalize" href="/" >Cerrar session</a></li>

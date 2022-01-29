@@ -23,6 +23,7 @@ export const CardShop = ({data}) => {
               imagen,
               name,
               price,
+              cantidad: 1
           }
 
           

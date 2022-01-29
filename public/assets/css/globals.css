@@ -114,3 +114,31 @@
     color: gray;
     font-weight: 500;
 }
+
+.icon-carrito{
+    color: white;
+    font-size: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.icon-carrito:hover{
+    color: white;
+    font-size: 20px;
+    background: #342352;
+    border-radius: 50%;
+    transition: 1s;
+}
+
+.content-productos-modal{
+    display: flex;
+}
+
+.ancho-110{
+    width: 110px;
+}
+
+.center-mitad{
+    text-align: center; 
+    vertical-align: middle;
+}

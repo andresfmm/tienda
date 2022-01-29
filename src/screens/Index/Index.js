@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { finishLoading, startLoading } from '../../actions/uiAction';
 import requestApiTest from '../../api/requestsTest';
+import { ModalProductos } from '../../components/modalproductos/ModalProductos';
 import { Preload } from '../../components/preloads/Preload';
 import { CardShop } from '../../components/shop/CardShop';
 import { useStorage } from '../../hooks/useStorage';
@@ -13,11 +14,16 @@ export const Index = () => {
   const { loading } = useSelector( state => state.ui );
   const [datacard, setDataCard] = useState([]);
 
-  const { leerLsStorage, guardarLStorage } = useStorage();
+  const { leerLsStorage, guardarLStorage, showCarritoStorage } = useStorage();
+
+  const [listacarrito, setListaCarrito] = useState([]);
 
   useEffect(() => {
      getDataShop();
-     console.log( leerLsStorage() )
+  }, []);
+
+  useEffect(() => {
+   mostrarListaCarrito();
   }, []);
 
 
@@ -26,13 +32,24 @@ export const Index = () => {
         try {
             
             dispatch( startLoading() )
-               const { data} = await requestApiTest.get('/products')
-               console.log(data)
+               const { data} = await requestApiTest.get('/products');
                setDataCard(data)
             dispatch( finishLoading() )  
         } catch (error) {
            console.log(error)  
         } 
+  }
+
+
+  const mostrarListaCarrito = () => {
+       try {
+           
+         const data = showCarritoStorage();
+         setListaCarrito(data);
+      
+       } catch (error) {
+          console.log(error)
+       }
   }
 
   if (loading) {
@@ -54,6 +71,8 @@ export const Index = () => {
          <div className='container'>
               <CardShop data={datacard}/>
          </div>
+
+         <ModalProductos lista={listacarrito}/>
       </>
   );
 };
