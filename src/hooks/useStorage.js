@@ -8,7 +8,7 @@ export const useStorage = () => {
     
       const [lstorage, setLStorage] = useState([]);
 
-      
+    
 
       const leerLsStorage = () => {
 
@@ -34,7 +34,6 @@ export const useStorage = () => {
 
                   if (!exist) {
                         saveLocalStorage(data)
-                        console.log('choco')
                   }
                   
                   
@@ -63,12 +62,39 @@ export const useStorage = () => {
            localStorage.setItem(keyLStorageName(), JSON.stringify(LsStorage));
      }
 
+
      const actualizarLocasStorageRestar = (position, data) => {
           
+      let LsStorage = leerLsStorage();
+      let originalstorage = LsStorage[position];
+      originalstorage.cantidad = originalstorage.cantidad - 1;
+      localStorage.setItem(keyLStorageName(), JSON.stringify(LsStorage));
+     }
+
+
+     const actualizarLocasStorageSuma = (code) => {
+          
+      let LsStorage = leerLsStorage();
+
+      for (let i = 0; i < LsStorage.length; i++) {
+            if ( LsStorage[i].code == code ) {
+                  console.log('pepepep suma')
+                  actualizarLocasStorageSumar(i, code);
+            }
+      }
+
+}
+
+     const actualizarLocasStorageResta = (code) => {
+          
             let LsStorage = leerLsStorage();
-            let originalstorage = LsStorage[position];
-            originalstorage.cantidad = originalstorage.cantidad - 1;
-            localStorage.setItem(keyLStorageName(), JSON.stringify(LsStorage));
+            console.log('pepepep resta')
+
+            for (let i = 0; i < LsStorage.length; i++) {
+                  if ( LsStorage[i].code == code ) {
+                        actualizarLocasStorageRestar(i, code);
+                  }
+            }
      }
 
 
@@ -83,11 +109,28 @@ export const useStorage = () => {
 
            return LsStorage;
      }
+
+
+
+     const cantidadItems = () => {
+
+           let LsStorage = leerLsStorage();
+
+           let suma = 0;
+           let items = LsStorage.forEach( element => {
+                 suma += element.cantidad
+           });
+
+           return suma;
+     }
       
       return {
             leerLsStorage,
             adicionarLocaStorage,
-            showCarritoStorage
+            showCarritoStorage,
+            cantidadItems,
+            actualizarLocasStorageSuma,
+            actualizarLocasStorageResta
       }
 };
 

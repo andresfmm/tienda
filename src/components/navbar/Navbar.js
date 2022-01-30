@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { startLogOut } from '../../actions/authActions';
 import { useCheckToken } from '../../hooks/useCheckToken';
+import { useStorage } from '../../hooks/useStorage';
 
 
 
@@ -11,8 +12,13 @@ export const Navbar = () => {
 
     const dispatch = useDispatch();
     
-    const [ initCheckToken ] = useCheckToken()
-    const [nameuser, setNameUser] = useState('')
+    const [ initCheckToken ] = useCheckToken();
+
+    const [nameuser, setNameUser] = useState('');
+  
+    const [cantidadp, setCantidadP] = useState(0);
+
+    const { cantidadItems } = useStorage();
 
     useEffect(() => {
         
@@ -23,6 +29,22 @@ export const Navbar = () => {
         checkTokenName()
 
     }, [initCheckToken])
+
+
+    useEffect(() => {
+       getCantidadItems();
+       console.log('checko')
+       
+    }, [cantidadItems]);
+
+
+    const getCantidadItems = async () => {
+
+        let result = await cantidadItems();
+        setCantidadP(result)
+        
+    }
+    
     
      
     const handleLogOut = () => {
@@ -64,7 +86,10 @@ export const Navbar = () => {
                     
                 </ul>
                  <li  className="nav-link icon-carrito"  data-bs-toggle="modal" data-bs-target="#modapProductos">
-                      <i className="bi bi-cart3"></i>
+                 <span className='cantidad-en-carrito'>{cantidadp}</span>
+                      <i className="bi bi-cart3">
+                          
+                      </i>
                  </li>
                 <ul className="navbar-nav text-center ">
                     <li className="nav-item dropdown">

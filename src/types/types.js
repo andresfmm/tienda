@@ -14,6 +14,9 @@ export const types = {
     addError: '[Auth] AddError', 
     removeError: '[Auth] RemoveError', 
 
-    userNotFound: 'User not found'
+    userNotFound: 'User not found',
+
+    changeStore: 'Change local storage',
+    unchangeStore: 'Unchange local storage'
 }
 
