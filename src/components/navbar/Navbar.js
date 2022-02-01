@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
 import { startLogOut } from '../../actions/authActions';
 import { useCheckToken } from '../../hooks/useCheckToken';
 import { useStorage } from '../../hooks/useStorage';
@@ -15,10 +15,15 @@ export const Navbar = () => {
     const [ initCheckToken ] = useCheckToken();
 
     const [nameuser, setNameUser] = useState('');
-  
-    const [cantidadp, setCantidadP] = useState(0);
 
-    const { cantidadItems } = useStorage();
+    const  { showModalCarrito } = useStorage();
+  
+      
+
+    const  { cantidaditemsheader } = useSelector( state => state.storage );
+
+    const { actualizarStoreCantidadItems } = useStorage();
+
 
     useEffect(() => {
         
@@ -28,27 +33,24 @@ export const Navbar = () => {
         }
         checkTokenName()
 
-    }, [initCheckToken])
+    }, [initCheckToken]);
 
 
     useEffect(() => {
-       getCantidadItems();
-       console.log('checko')
-       
-    }, [cantidadItems]);
+        dispatch( actualizarStoreCantidadItems() );
+    }, []);
 
-
-    const getCantidadItems = async () => {
-
-        let result = await cantidadItems();
-        setCantidadP(result)
         
+    
+
+    const showDataModal = () => {
+        dispatch( showModalCarrito() );
     }
-    
-    
+        
      
     const handleLogOut = () => {
         dispatch( startLogOut() );
+        
     }
     
 
@@ -62,6 +64,9 @@ export const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarScroll">
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                        {/* <NavLink exact className="nav-link" activeClassName="active" to="/">Gestion productos</NavLink> */}
+                    </li>
                     {/* <li className="nav-item">
                         <NavLink exact className="nav-link" activeClassName="active" to="/">Inicio</NavLink>
                     </li>
@@ -85,8 +90,8 @@ export const Navbar = () => {
                     </li> */}
                     
                 </ul>
-                 <li  className="nav-link icon-carrito"  data-bs-toggle="modal" data-bs-target="#modapProductos">
-                 <span className='cantidad-en-carrito'>{cantidadp}</span>
+                 <li  className="nav-link icon-carrito"  data-bs-toggle="modal" data-bs-target="#modapProductos" onClick={showDataModal}>
+                 <span className='cantidad-en-carrito'>{cantidaditemsheader}</span>
                       <i className="bi bi-cart3">
                           
                       </i>

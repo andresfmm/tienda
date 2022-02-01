@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { keyLStorageName } from '../env/env';
+import { types } from '../types/types';
 
 
 export const initialState = [];
 
 export const useStorage = () => {
     
-      const [lstorage, setLStorage] = useState([]);
+
+      const dispatch =  useDispatch();
 
     
 
@@ -36,16 +39,15 @@ export const useStorage = () => {
                         saveLocalStorage(data)
                   }
                   
-                  
+                  dispatch( actualizarStoreCantidadItems() );
 
            }else{
                  
                 saveLocalStorage(data); 
-           }
-           
-           
+                dispatch( actualizarStoreCantidadItems() );
+           }    
 
-     }
+      }
 
      const saveLocalStorage = (storage) => {
            
@@ -65,27 +67,29 @@ export const useStorage = () => {
 
      const actualizarLocasStorageRestar = (position, data) => {
           
-      let LsStorage = leerLsStorage();
-      let originalstorage = LsStorage[position];
-      originalstorage.cantidad = originalstorage.cantidad - 1;
-      localStorage.setItem(keyLStorageName(), JSON.stringify(LsStorage));
+            let LsStorage = leerLsStorage();
+            let originalstorage = LsStorage[position];
+            originalstorage.cantidad = originalstorage.cantidad - 1;
+            localStorage.setItem(keyLStorageName(), JSON.stringify(LsStorage));
      }
 
 
-     const actualizarLocasStorageSuma = (code) => {
+      const actualizarLocasStorageSuma = (code) => {
           
-      let LsStorage = leerLsStorage();
+            let LsStorage = leerLsStorage();
 
-      for (let i = 0; i < LsStorage.length; i++) {
-            if ( LsStorage[i].code == code ) {
-                  console.log('pepepep suma')
-                  actualizarLocasStorageSumar(i, code);
+            for (let i = 0; i < LsStorage.length; i++) {
+                  if ( LsStorage[i].code == code ) {
+                        console.log('pepepep suma')
+                        actualizarLocasStorageSumar(i, code);
+                  }
             }
+            dispatch( actualizarStoreCantidadItems() );
       }
 
-}
 
-     const actualizarLocasStorageResta = (code) => {
+
+      const actualizarLocasStorageResta = (code) => {
           
             let LsStorage = leerLsStorage();
             console.log('pepepep resta')
@@ -95,17 +99,18 @@ export const useStorage = () => {
                         actualizarLocasStorageRestar(i, code);
                   }
             }
-     }
+
+            dispatch( actualizarStoreCantidadItems() );
+      }
 
 
      const showCarritoStorage = () => {
 
            let LsStorage = leerLsStorage();
-
-           if ( LsStorage.length > 0 ) {
-                 
-                 
-           }
+          
+            setTimeout(() => {
+                  dispatch( changeCarrito() );
+            }, 1500);
 
            return LsStorage;
      }
@@ -117,12 +122,57 @@ export const useStorage = () => {
            let LsStorage = leerLsStorage();
 
            let suma = 0;
-           let items = LsStorage.forEach( element => {
+           LsStorage.forEach( element => {
                  suma += element.cantidad
            });
 
            return suma;
      }
+
+
+
+      const actualizarStoreCantidadItems = () => {
+
+           return {
+                 type: types.changeStore,
+                 payload: {
+                      cantidaditemsheader: cantidadItems()
+                 }
+           }
+      }
+
+
+      const varicarLocalStorage = () => {
+
+            localStorage.setItem(keyLStorageName(), '[]');
+            return {
+                  type: types.changeStore,
+                  payload: {
+                       cantidaditemsheader: 0
+                  }
+            }
+      }
+
+
+
+      const showModalCarrito = () => {
+            return {
+                  type: types.showModal,
+                  payload: {
+                        statuschange: true
+                  }
+            }
+      }
+
+
+      const changeCarrito = () => {
+            return {
+                  type: types.showModal,
+                  payload: {
+                        statuschange: false
+                  }
+            }
+      }
       
       return {
             leerLsStorage,
@@ -130,7 +180,10 @@ export const useStorage = () => {
             showCarritoStorage,
             cantidadItems,
             actualizarLocasStorageSuma,
-            actualizarLocasStorageResta
+            actualizarLocasStorageResta,
+            actualizarStoreCantidadItems,
+            varicarLocalStorage,
+            showModalCarrito
       }
 };
 

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useStorage } from '../../hooks/useStorage';
 
 
@@ -7,17 +8,47 @@ import { useStorage } from '../../hooks/useStorage';
 
 export const ModalProductos = ({lista}) => {
 
-    const { actualizarLocasStorageSuma, actualizarLocasStorageResta } = useStorage()
+    const dispatch = useDispatch();
+
+    const  { cantidaditemsheader } = useSelector( state => state.storage );
+
+    console.log( 'cantidaditemsheader ',cantidaditemsheader)
+
+    const { actualizarLocasStorageSuma, actualizarLocasStorageResta, varicarLocalStorage } = useStorage()
 
   
     const sumar = (event) => {
+        let cantidad = event.target.parentElement.querySelector('.total-modal');
+
+        let cantidad_actual = parseInt(cantidad.textContent);
+        let nueva_cantidad = cantidad_actual + 1;
+
+        cantidad.textContent = nueva_cantidad;
+
         let code = event.target.getAttribute('attr-code');
         actualizarLocasStorageSuma(code)
     }
 
     const restar = (event) => {
+        let cantidad = event.target.parentElement.querySelector('.total-modal');
+    
+        let cantidad_actual = parseInt(cantidad.textContent);
+
+        if (cantidad_actual <= 0) return;
+
+        let nueva_cantidad = cantidad_actual - 1;
+        cantidad.textContent = nueva_cantidad;
+
         let code = event.target.getAttribute('attr-code');
         actualizarLocasStorageResta(code)
+    }
+
+
+
+    const vaciarCarrito = () => {
+        dispatch( varicarLocalStorage() );
+
+        document.querySelectorAll('#tbodymodal > tr').forEach( tr => tr.remove() );
     }
 
 
@@ -29,10 +60,18 @@ export const ModalProductos = ({lista}) => {
                     <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title" id="exampleModalLabel">
-                            Mis productos
+                            Mis productos 
                         </h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        {
+                            cantidaditemsheader  
+                              ?
+                                <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              :
+                                ''
+                        }
                     </div>
+                    <br/> 
+                    <button type="submit" className="btn btn-dark btn-vaciar-carrito" onClick={vaciarCarrito}>Vaciar carrito</button>
                     <div className="modal-body">
                     <table className="table">
                         <thead>
@@ -43,7 +82,7 @@ export const ModalProductos = ({lista}) => {
                             <th scope="col">Precio</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id='tbodymodal'>
                             {
                                 lista.map( (item) => 
                                    

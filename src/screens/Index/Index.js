@@ -11,20 +11,30 @@ import { useStorage } from '../../hooks/useStorage';
 export const Index = () => {
 
   const dispatch = useDispatch();
+
   const { loading } = useSelector( state => state.ui );
+  const  { statuschange } = useSelector( state => state.storage );
+
   const [datacard, setDataCard] = useState([]);
 
   const { leerLsStorage, guardarLStorage, showCarritoStorage } = useStorage();
 
   const [listacarrito, setListaCarrito] = useState([]);
 
+
+  
+
   useEffect(() => {
      getDataShop();
   }, []);
 
   useEffect(() => {
-   mostrarListaCarrito();
-  }, []);
+     
+      if (statuschange) {
+          mostrarListaCarrito();
+      }
+      
+  }, [statuschange]);
 
 
   const getDataShop = async () => {
@@ -58,9 +68,7 @@ export const Index = () => {
       )
   }
 
-  const epa = () => {
-     guardarLStorage()
-  }
+  
   
   
   return (

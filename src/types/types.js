@@ -17,6 +17,8 @@ export const types = {
     userNotFound: 'User not found',
 
     changeStore: 'Change local storage',
-    unchangeStore: 'Unchange local storage'
+    unchangeStore: 'Unchange local storage',
+
+    showModal: '[UI] Show modal'
 }
 

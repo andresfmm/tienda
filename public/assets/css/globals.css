@@ -160,3 +160,8 @@
 .total-modal{
     background: #dddddd;
 }
+
+.btn-vaciar-carrito{
+    width: 90%;
+    margin: 0 auto;
+}

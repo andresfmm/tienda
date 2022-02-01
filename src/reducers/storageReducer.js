@@ -12,11 +12,9 @@ export const storageReducer = ( state = initialState, action ) => {
           case types.changeStore:
                return{
                    ...state,
-                   cantidaditemsheader: action.payload.cantidaditemsheader,
-                   statuschange: action.payload.statuschange,
-                   totalpagar: action.payload.totalpagar
+                   cantidaditemsheader: action.payload.cantidaditemsheader
                 }
-          case types.changeStore:
+          case types.showModal:
                 return{ 
                     ...state,
                     statuschange: action.payload.statuschange,
