@@ -1,6 +1,16 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Recommendation
+it is recommended to work with yarn the instructions are with npm but it is only a recommendation 
+
+
+## Clone from 
+Runing git clone https://github.com/andresfmm/tienda.git
+
+
+## Install packages
+Run yarn install or npm install ( yarn is recommended )
+
 
 ## Available Scripts
 
@@ -41,7 +51,6 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
