@@ -5,6 +5,8 @@ import { loginEmailPassword } from '../../actions/authActions';
 import { Preload } from '../../components/preloads/Preload';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { LoginTheme } from '../../themes/LoginTheme';
+
 
 
 
@@ -47,9 +49,8 @@ export const Login = () => {
 
            <NavbarLogin/>
             <div className="container">
-                <div className="row" style={{"justifyContent": "center"}}>
-                    <div className="col-md-6">
-                        <div className="login-form bg-light mt-5 p-4">
+                <div style={LoginTheme.main}>
+                        <div className="login-form  mt-5 p-4" style={LoginTheme.bg_white}>
                             <form className="row g-3" onSubmit={login} >
                                 <h4>Bienvenido</h4>
                                 <div className="col-12">
@@ -76,7 +77,6 @@ export const Login = () => {
                                 <p className="text-center mb-0">Olvidaste tu contrseña? <a href="#">Recuperar contraseña</a></p>
                             </div> */}
                         </div>
-                    </div>
                 </div>
             </div>
         </>

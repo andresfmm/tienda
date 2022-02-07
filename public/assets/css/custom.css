@@ -1,10 +1,9 @@
 @import './colors.css';
 
 
-/* #root{
-    height: 100%;
+#root{
     min-height: 100vh;
-} */
+}
 
 .color-base-1{
     background: var(--main-color-1);
