@@ -1,7 +1,7 @@
 
 
 
-export const LoginTheme  = {
+export const  RegistroTheme = {
 
     main: {
         "height": "70vh",
@@ -9,8 +9,7 @@ export const LoginTheme  = {
         "justifyContent": "center",
         "display": "flex"
     },
-    bg_white: {
+    bg_from_color: {
         background: 'rgb(229 225 225)'
     }
 };
-

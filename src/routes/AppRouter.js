@@ -10,6 +10,7 @@ import {
 
 
 import { Login } from '../screens/Login/Login';
+import { Registro } from '../screens/Registro/Registro';
 import { DashboardRoutes } from './DashboardRoutes';
 import { Preload } from '../components/preloads/Preload';
 import { useCheckToken } from '../hooks/useCheckToken';
@@ -82,7 +83,7 @@ export const AppRouter = () => {
                        path="/registro"
                        element={
                            <PrivateRoutes>
-                               <Login/>
+                               <Registro/>
                            </PrivateRoutes>
                        }
                     />

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registrarUsuario } from '../../actions/registerActions';
 import { NavbarLogin } from '../../components/navbar/NavbarLogin';
 import { useForm } from '../../hooks/useForm';
+import { RegistroTheme } from '../../themes/RegistroTheme';
 
 export const Registro = () => {
 
@@ -19,6 +20,8 @@ export const Registro = () => {
         password: ''
     });
 
+    const { username, email, password } = formState;
+
 
     const registro = (event) => {
         event.preventDefault();
@@ -31,10 +34,10 @@ export const Registro = () => {
          <NavbarLogin/>
 
          <div className="container">
-                <div className="row" style={{"justifyContent": "center"}}>
+                <div style={RegistroTheme.main}>
                     <div className="col-md-6 ">
-                        <div className="login-form bg-light mt-5 p-4">
-                            <form className="row g-3" onSubmit={registro}>
+                        <div className="login-form  mt-5 p-4" style={RegistroTheme.bg_from_color}>
+                            <form className="row g-3" onSubmit={registro} autoComplete="off">
                                 <h4>Registrarme</h4>
                                 <div className="col-12">
                                     <input type="text" onChange={handleInputName} name="username" className="form-control" placeholder="Nombre" required />
@@ -43,7 +46,7 @@ export const Registro = () => {
                                     <input type="text" onChange={handleInputName} name="email" className="form-control" placeholder="Email" required />
                                 </div>
                                 <div className="col-12">
-                                    <input type="password" onChange={handleInputName} name="password" className="form-control" placeholder="Password" required />
+                                    <input type="password" onChange={handleInputName} name="password" className="form-control" placeholder="Password" required autoComplete="on" />
                                 </div>
                                 <div className="col-12">
                                     <button type="submit" className="btn btn-dark float-end">Registrarme</button>

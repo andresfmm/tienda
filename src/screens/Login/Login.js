@@ -50,7 +50,8 @@ export const Login = () => {
            <NavbarLogin/>
             <div className="container">
                 <div style={LoginTheme.main}>
-                        <div className="login-form  mt-5 p-4" style={LoginTheme.bg_white}>
+                    <div className="col-md-6 "> 
+                    <div className="login-form  mt-5 p-4" style={LoginTheme.bg_white}>
                             <form className="row g-3" onSubmit={login} >
                                 <h4>Bienvenido</h4>
                                 <div className="col-12">
@@ -77,6 +78,7 @@ export const Login = () => {
                                 <p className="text-center mb-0">Olvidaste tu contrseña? <a href="#">Recuperar contraseña</a></p>
                             </div> */}
                         </div>
+                    </div>                        
                 </div>
             </div>
         </>

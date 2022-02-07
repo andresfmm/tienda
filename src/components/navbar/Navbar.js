@@ -29,7 +29,7 @@ export const Navbar = () => {
         
         async function checkTokenName() {
             const token = await initCheckToken();
-            //setNameUser(token.usuario.nombre)
+            // setNameUser(token.usuario.nombre)
         }
         checkTokenName()
 
