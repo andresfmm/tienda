@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# Getting Started test shop react.js
 
 ## Recommendation
 it is recommended to work with yarn the instructions are with npm but it is only a recommendation 
