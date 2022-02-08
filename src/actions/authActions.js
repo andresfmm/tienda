@@ -2,7 +2,7 @@
 import { types } from '../types/types';
 import { finishLoading, startLoading, setError, removeError  } from './uiAction';
 import requestApi from '../api/requestsApi';
-import { keyLStorageName } from '../env/env';
+import { keyLStorageNameUser } from '../env/env';
 
 
 
@@ -13,18 +13,30 @@ export const loginEmailPassword = ( {email, password} ) => {
           dispatch( startLoading() )
 
            
-          const { data } = await requestApi.post('/login', { email, password});
+        //   const { data } = await requestApi.post('/login', { email, password});
+        const data = {
+            ok: true,
+            msg: '',
+            token: 'token',
+            status: 'authenticated',
+            user: {
+               userName : 'andres',
+               email: 'andres230687@hotmail.com',
+               isAdmin: true
+            }
+          }
 
           
           
-          if (!data.logged) {
-              dispatch( setError('Usuario o password incorrectos') )
+          if (data.ok) {
+
+              await localStorage.setItem(keyLStorageNameUser(), JSON.stringify(data) );
+              dispatch( setLogin(data) )
+              
           }else{
+              dispatch( setError(data.msg) )
               dispatch( removeError() )
-          }
-          await localStorage.setItem(keyLStorageName(), JSON.stringify(data) );
-          dispatch( setLogin(data) )
-          
+          }        
          
           dispatch( finishLoading() )
     }
@@ -46,7 +58,7 @@ export const startLogOut = () => {
                 email: ''
             }
         }
-        await localStorage.setItem(keyLStorageName(), JSON.stringify(data) );
+        await localStorage.setItem(keyLStorageNameUser(), JSON.stringify(data) );
         dispatch( logout(data) )
         dispatch( finishLoading() )
       }
@@ -62,9 +74,8 @@ export const setLogin = (data) => {
         type: types.login,
         payload: {
             token:   data.token,
-            logged:  data.logged,
             status:  data.status,
-            usuario: data.usuario
+            usuario: data.user
         }
     }
 }

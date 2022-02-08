@@ -3,12 +3,13 @@ import { types } from "../types/types";
 
 const initialStateAuth = {
     token: null,
-    logged: false,
-    status: '',
-    usuario: {
-        nombre: '',
-        email: ''
-    }
+    status: 'un-authenticated',
+    user: {
+        userName : '',
+        email: '',
+        isAdmin: false
+     }
+
 }
 
 
@@ -21,16 +22,14 @@ export const authReducer = ( state = initialStateAuth, action ) => {
                   ...state,
                  token: action.payload.token,
                  status: action.payload.status,
-                 user: action.payload.user,
-                 logged: action.payload.logged
+                 user: action.payload.usuario,
                }
             case types.logout:
                 return {
                 ...state,
-                 token: action.payload.token,
-                 status: action.payload.status,
-                 user: action.payload.user,
-                 logged: action.payload.logged
+                token: action.payload.token,
+                status: action.payload.status,
+                user: action.payload.usuario,
                 }
               
           default:

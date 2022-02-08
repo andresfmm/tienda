@@ -14,9 +14,10 @@ import { Registro } from '../screens/Registro/Registro';
 import { DashboardRoutes } from './DashboardRoutes';
 import { Preload } from '../components/preloads/Preload';
 import { useCheckToken } from '../hooks/useCheckToken';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { PublicRoutes } from './PublicRoutes';
 import { PrivateRoutes } from './PrivateRoutes';
+import { setLogin } from '../actions/authActions';
 
 
 
@@ -24,10 +25,11 @@ export const AppRouter = () => {
 
 
 
-    const { logged } = useSelector(state => state.auth )
+    
+    const status = useSelector( state => state.auth );
+    const dispatch = useDispatch();
 
-    const [checking, setChecking] = useState(false);
-    const [isLogged,   setIsLogged] = useState(false)
+    const [checking, setChecking] = useState(true);
     
     const [ initCheckToken ] = useCheckToken()
 
@@ -37,17 +39,14 @@ export const AppRouter = () => {
 
         const token = initCheckToken();
 
-        if (!token.logged){
-            setIsLogged(token.logged)
-            setChecking(false)
-        }
+        dispatch( setLogin(token) )
 
-        setIsLogged(token.logged)
         setChecking(false)
 
         
 
-    }, [logged, initCheckToken])
+    }, [])
+
 
 
     if (checking) {
@@ -64,27 +63,27 @@ export const AppRouter = () => {
                     <Route  
                       path="/*"
                       element={
-                        <PublicRoutes>
+                        <PrivateRoutes>
                             <DashboardRoutes />
-                        </PublicRoutes>
-                    }
+                        </PrivateRoutes>
+                      }
                     />
 
                     <Route  
                        path="/login"
                        element={
-                           <PrivateRoutes>
+                           <PublicRoutes>
                                <Login/>
-                           </PrivateRoutes>
+                           </PublicRoutes>
                        }
                     />
 
                     <Route  
                        path="/registro"
                        element={
-                           <PrivateRoutes>
+                           <PublicRoutes>
                                <Registro/>
-                           </PrivateRoutes>
+                           </PublicRoutes>
                        }
                     />
                     

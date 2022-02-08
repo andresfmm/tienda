@@ -1,10 +1,14 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
 export const PrivateRoutes = ({ children }) => {
   
-    const da = true;
-    return da
-           ? children
-           : <Navigate to="/login" />;
+    const {status} = useSelector( state => state.auth );
+    console.log('chorrooo ', status)
+
+    return status == 'authenticated'
+
+           ? children  
+           : <Navigate to="/login" /> ;
 };
