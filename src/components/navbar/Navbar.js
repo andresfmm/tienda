@@ -29,7 +29,7 @@ export const Navbar = () => {
         
         async function checkTokenName() {
             const token = await initCheckToken();
-            // setNameUser(token.usuario.nombre)
+            //setNameUser(token.usuario.nombre)
         }
         checkTokenName()
 
@@ -58,37 +58,15 @@ export const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg py-4 navbar-dark color-base-1">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/">Manuales</Link>
+                <Link className="navbar-brand" to="/app">Manuales</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarScroll">
                 <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                        {/* <NavLink exact className="nav-link" activeClassName="active" to="/">Gestion productos</NavLink> */}
-                    </li>
-                    {/* <li className="nav-item">
-                        <NavLink exact className="nav-link" activeClassName="active" to="/">Inicio</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink exact className="nav-link" activeClassName="active" to="/software">Software</NavLink>
-                    </li>
-                   <li className="nav-item">
-                        <NavLink exact className="nav-link" activeClassName="active" to="/bossanova">Bossanova</NavLink>
-                   </li>
-                   <li className="nav-item">
-                        <NavLink exact className="nav-link" activeClassName="active" to="/eclipse">Eclipse</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink exact className="nav-link" activeClassName="active" to="/hotel-pance-122">Hotel pance122</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink exact className="nav-link" activeClassName="active" to="/o2">O2</NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink exact className="nav-link" activeClassName="active" to="/sol-y-luna">Sol y luna</NavLink>
-                    </li> */}
-                    
+                        <NavLink  className="nav-link"  to="/crear-producto">Crear productos</NavLink>
+                    </li>          
                 </ul>
                  <li  className="nav-link icon-carrito"  data-bs-toggle="modal" data-bs-target="#modapProductos" onClick={showDataModal}>
                  <span className='cantidad-en-carrito'>{cantidaditemsheader}</span>
