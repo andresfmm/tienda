@@ -1,6 +1,6 @@
 import requestApi from "../api/requestsApi";
 import { keyLStorageName } from "../env/env";
-import {  setLogin } from "./authActions";
+import {  loginEmailPassword, setLogin } from "./authActions";
 import { finishLoading, removeError, setError, startLoading } from "./uiAction";
 
 
@@ -11,19 +11,24 @@ export const registrarUsuario = ( { username, email, password} ) => {
           
            dispatch( startLoading() )
 
-           const { data } = await requestApi('/resigtro', { username, email, password })
+           dispatch( removeError() )
 
-           if (data.exist) {
-               dispatch( setError('Este email ya se encuentra registrado') )
-           }else if(data.ok){
+           const { data } = await requestApi.post('/resigtro', { username, email, password })
 
-               dispatch( removeError() )
-               await localStorage.setItem(keyLStorageName(), JSON.stringify(data) );
-                dispatch( setLogin(data) )
-                
-                
+
+           if (data.ok) {
+
+               dispatch( loginEmailPassword( { email: email, password: password } ) )
+                    
+                    
                 dispatch( finishLoading() )
+               
+           }else{
+
+              dispatch( setError(data.msg) )
            }
+
+           dispatch( finishLoading() )
 
       }
 }
