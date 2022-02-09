@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useCheckToken } from '../hooks/useCheckToken';
 
-const baseURL = 'http://localhost:8080/api';
+const baseURL = 'http://localhost:8082/api/v1';
 
 const requestApi = axios.create({ baseURL });
 

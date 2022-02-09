@@ -11,22 +11,11 @@ export const loginEmailPassword = ( {email, password} ) => {
     return async( dispatch ) => {
           
           dispatch( startLoading() )
+          dispatch( removeError() ) 
 
            
-        //   const { data } = await requestApi.post('/login', { email, password});
-        const data = {
-            ok: true,
-            msg: '',
-            token: 'token',
-            status: 'authenticated',
-            user: {
-               userName : 'andres',
-               email: 'andres230687@hotmail.com',
-               isAdmin: true
-            }
-          }
-
-          
+          const { data } = await requestApi.post('/login', { email, password});
+                  
           
           if (data.ok) {
 
@@ -34,8 +23,7 @@ export const loginEmailPassword = ( {email, password} ) => {
               dispatch( setLogin(data) )
               
           }else{
-              dispatch( setError(data.msg) )
-              dispatch( removeError() )
+              dispatch( setError(data.msg) )              
           }        
          
           dispatch( finishLoading() )
@@ -50,12 +38,14 @@ export const startLogOut = () => {
         dispatch( startLoading() )
         
         const data = {
-            token: null,
-            logged: false,
-            rol: '',
-            usuario: {
-                nombre: '',
-                email: ''
+            ok: false,
+            msg: '',
+            token: '',
+            status: 'un-authenticated',
+            user: {
+               userName : '',
+               email: '',
+               isAdmin: false
             }
         }
         await localStorage.setItem(keyLStorageNameUser(), JSON.stringify(data) );
@@ -87,7 +77,6 @@ export const logout = (data) => {
         type: types.logout,
         payload: {
             token:   data.token,
-            logged:  data.logged,
             status:  data.status,
             usuario: data.usuario
         }
