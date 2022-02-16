@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { finishLoading, startLoading } from '../../actions/uiAction';
-import requestApiTest from '../../api/requestsTest';
+import requestApi from '../../api/requestsApi';
 import { ModalProductos } from '../../components/modalproductos/ModalProductos';
 import { Preload } from '../../components/preloads/Preload';
 import { CardShop } from '../../components/shop/CardShop';
@@ -42,10 +42,12 @@ export const Index = () => {
         try {
             
             dispatch( startLoading() )
-               const { data} = await requestApiTest.get('/products');
-               setDataCard(data)
+               const { data} = await requestApi.get('/product');
+               console.log('data-data ',data);
+               setDataCard(data.productos)
             dispatch( finishLoading() )  
         } catch (error) {
+           dispatch( finishLoading() ) 
            console.log(error)  
         } 
   }

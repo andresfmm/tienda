@@ -1,5 +1,6 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
+import { urlImages } from '../../env/env';
 import { useStorage } from '../../hooks/useStorage';
 
 
@@ -39,26 +40,26 @@ export const CardShop = ({data}) => {
                  {  
                      data.map( (item) => 
                         <div className="col" key={item.id}  >
-                            <div className="card h-100" attr-identifier={item.id}>
+                            <div className="card h-100" attr-identifier={item._id}>
                             <div className='crop'> 
-                                <img src={item.image}  alt="..." />
+                                <img src={urlImages()+'/uploads/productos/'+item.product_src}  alt="..." />
                             </div>
                                 <div className="card-body">
-                                    <h5 className="card-title" attr-name={item.title}>{item.title}</h5>
-                                    <p className="card-text">{item.description}</p>
+                                    <h5 className="card-title" attr-name={item.product_name}>{item.product_name}</h5>
+                                    <p className="card-text">{item.product_description}</p>
                                 </div>
                                 <div className='price-rater'> 
-                                   <div className='price' attr-price={item.price}> 
-                                          ${item.price}
+                                   <div className='price' attr-price={item.product_price}> 
+                                          ${item.product_price}
                                    </div>
                                    <div> 
                                   
-                                   <StarRatingComponent 
+                                   {/* <StarRatingComponent 
                                         name="rate1" 
                                         starCount={5}
                                         value={ item.rating.rate }
                                         onStarClick={ () => console.log('hhh')}
-                                    />
+                                    /> */}
                                             
                                    </div>
                                 </div>
