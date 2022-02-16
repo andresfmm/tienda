@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../actions/gestionProductosActions';
 import { Preload } from '../../components/preloads/Preload';
+import { sweetAlerta } from '../../helpers/helpers';
 import { useForm } from '../../hooks/useForm';
 import { CrearProductoTheme } from '../../themes/CrearProductoTheme';
 import { RegistroTheme } from '../../themes/RegistroTheme';
@@ -27,10 +28,32 @@ export const CrearProducto = () => {
   const { product_imagen, product_name, product_description, product_price } = formState;
 
 
-  const crearProducto = (event) => {
+  const crearProducto = async(event) => {
     event.preventDefault();
 
-    dispatch( createProduct( { product_imagen: file, product_name, product_description, product_price } ) );
+   const result = await dispatch( createProduct( { product_imagen: file, product_name, product_description, product_price } ) );
+   
+   if (result.ok) {
+
+    let alerta = {
+      title: 'Producto creado',
+      footer: 'test tienda react y node by meza',
+      icon: 'success',
+      text: result.msg
+    }
+    await sweetAlerta(alerta);
+     
+   } else {
+
+    let alerta = {
+      title: 'Error',
+      footer: 'test tienda react y node by meza',
+      icon: 'error',
+      text: result.msg
+    }
+    await sweetAlerta(alerta);
+   }
+   
   }
 
 

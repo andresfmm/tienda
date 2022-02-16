@@ -13,7 +13,7 @@ export const registrarUsuario = ( { username, email, password} ) => {
 
            dispatch( removeError() )
 
-           const { data } = await requestApi.post('/resigtro', { username, email, password })
+           const { data } = await requestApi.post('/user/resigtro', { username, email, password })
 
 
            if (data.ok) {

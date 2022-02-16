@@ -14,7 +14,7 @@ export const loginEmailPassword = ( {email, password} ) => {
           dispatch( removeError() ) 
 
            
-          const { data } = await requestApi.post('/login', { email, password});
+          const { data } = await requestApi.post('/user/login', { email, password});
                   
           
           if (data.ok) {

@@ -29,7 +29,7 @@ export const Navbar = () => {
         
         async function checkTokenName() {
             const token = await initCheckToken();
-            //setNameUser(token.usuario.nombre)
+            setNameUser(token.user.userName)
         }
         checkTokenName()
 
@@ -58,7 +58,7 @@ export const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg py-4 navbar-dark color-base-1">
             <div className="container-fluid">
-                <Link className="navbar-brand" to="/app">Manuales</Link>
+                <Link className="navbar-brand" to="/app">Tienda</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
                 </button>
@@ -77,7 +77,7 @@ export const Navbar = () => {
                 <ul className="navbar-nav text-center ">
                     <li className="nav-item dropdown">
                         <a className="nav-link dropdown-toggle navbar-brand txt-negro-oficial text-capitalize txt-navbar-links" href="/" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {/* {nameuser} */}
+                            {nameuser}
                         </a>
                         <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li onClick={handleLogOut}><a className="dropdown-item text-capitalize" href="/" >Cerrar session</a></li>

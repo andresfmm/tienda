@@ -14,16 +14,22 @@ export const createProduct = ({ product_imagen, product_name, product_descriptio
 
                 let formData = new FormData();
 
-                formData.append('product_imagen', product_imagen);
+                formData.append('archivo', product_imagen);
                 formData.append('product_name', product_name);
                 formData.append('product_description', product_description);
                 formData.append('product_price', product_price);
 
-                const { data } = requestApi.post('crearproducto', formData);
+                const { data } = await requestApi.post('/product/', formData);
 
+                // se puede poner un reducer que ponga la imagen vacia para que desaparesca
+                // despues de crear y asignar el blob en el set imagen a ese reducer
+                // para que sea global
+                
+                dispatch( finishLoading() );
 
+                return data;
 
-             dispatch( finishLoading() );
+             
 
          }
           
