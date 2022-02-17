@@ -173,6 +173,12 @@ export const useStorage = () => {
                   }
             }
       }
+
+
+      const ordenProductos = () => {
+            let LsStorage = leerLsStorage();
+            return LsStorage;
+      }
       
       return {
             leerLsStorage,
@@ -183,7 +189,8 @@ export const useStorage = () => {
             actualizarLocasStorageResta,
             actualizarStoreCantidadItems,
             varicarLocalStorage,
-            showModalCarrito
+            showModalCarrito,
+            ordenProductos
       }
 };
 

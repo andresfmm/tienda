@@ -2,47 +2,27 @@ import requestApi from "../api/requestsApi";
 import { types } from "../types/types";
 import { startLogOut } from '../actions/authActions';
 import { finishLoading, startLoading } from "./uiAction";
-
-export const getListaSoftware = () => {
-
-    try {
-
-        return async( dispatch ) => {
-            
-              const { data } = await requestApi.post('/softwares');
-
-              dispatch( startLoading() )
-
-              if ( data.status === types.userNotFound) {
-                  dispatch( startLogOut() )
-              }
-
-               dispatch( finishLoading() )
-              return data;
-        }
-        
-    } catch (error) {
-        
-    }
-}
+import { useStorage } from "../hooks/useStorage";
 
 
 
-export const getManualesManualesVideo = (url) => {
+
+
+export const createOrder = (direccion, orden) => {
 
     try {
 
         return async( dispatch ) => {
-            
-              const { data } = await requestApi.post(url);
+              
+            dispatch( startLoading() )
 
-             
+        
 
-              dispatch( startLoading() )
-
-              if ( data.status === types.userNotFound) {
-                  dispatch( startLogOut() )
-              }
+            const data_orden = {
+               direccion: direccion,
+               orden: orden
+            }
+              const { data } = await requestApi.post('/orden', data_orden);
 
               dispatch( finishLoading() )
               return data;

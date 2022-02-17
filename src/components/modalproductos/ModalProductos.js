@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { createOrder } from '../../actions/appActions';
+import { sweetAlerta } from '../../helpers/helpers';
+import { useForm } from '../../hooks/useForm';
 import { useStorage } from '../../hooks/useStorage';
 
 
@@ -12,9 +15,17 @@ export const ModalProductos = ({lista}) => {
 
     const  { cantidaditemsheader } = useSelector( state => state.storage );
 
-    console.log( 'cantidaditemsheader ',cantidaditemsheader)
+    const { loading, msgError } = useSelector( state => state.ui )
 
-    const { actualizarLocasStorageSuma, actualizarLocasStorageResta, varicarLocalStorage } = useStorage()
+    const [ formState, handleInputName ] = useForm({
+        direccion: ''
+    });
+
+    const { direccion } = formState;
+
+    const [btnactive, setBtnActive] = useState(false)
+
+    const { actualizarLocasStorageSuma, actualizarLocasStorageResta, varicarLocalStorage, ordenProductos } = useStorage()
 
   
     const sumar = (event) => {
@@ -49,6 +60,42 @@ export const ModalProductos = ({lista}) => {
         dispatch( varicarLocalStorage() );
 
         document.querySelectorAll('#tbodymodal > tr').forEach( tr => tr.remove() );
+    }
+
+
+    const confirmarCompra = async() => {
+          document.getElementById('cerrar_modal').click();
+          const products = await ordenProductos();
+          const create =  await dispatch( createOrder(direccion, products) )
+
+          if (create.ok) {
+            
+            vaciarCarrito()
+            let alerta = {
+              title: 'Pedido creado',
+              footer: 'test tienda react y node by meza',
+              icon: 'success',
+              text: create.msg
+            }
+            await sweetAlerta(alerta);
+             
+           } else {
+        
+            let alerta = {
+              title: 'Error',
+              footer: 'test tienda react y node by meza',
+              icon: 'error',
+              text: create.msg
+            }
+            await sweetAlerta(alerta);
+           }
+    }
+
+
+    const checkCampo = (event) => {
+        const text = event.target.value;
+        (text !== '') ? setBtnActive(true) : setBtnActive(false);
+        
     }
 
 
@@ -101,14 +148,24 @@ export const ModalProductos = ({lista}) => {
                                 )
                             }
                         </tbody>
+                        
                         </table>
+                        <div className="col-12">
+                            <label htmlFor="exampleFormControlTextarea1" className="form-label">Escriba direccion de entrega</label>
+                            <textarea name="direccion" className="form-control" id="exampleFormControlTextarea1" onKeyUp={checkCampo} onChange={handleInputName} rows="3" required></textarea>
+                        </div>
                         
                             
                         
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" className="btn btn-dark">Confirmar compra</button>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" id="cerrar_modal">Cerrar</button>
+                        {
+                            btnactive ?
+                              <button type="button" className="btn btn-dark" onClick={confirmarCompra}>Confirmar compra</button>
+                            : 
+                              <button type="button" className="btn btn-dark" disabled>Digite una direcion para confirmar</button>
+                        }
                     </div>
                     </div>
                 </div>

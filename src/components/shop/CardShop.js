@@ -39,7 +39,7 @@ export const CardShop = ({data}) => {
            
                  {  
                      data.map( (item) => 
-                        <div className="col" key={item.id}  >
+                        <div className="col" key={item._id}  >
                             <div className="card h-100" attr-identifier={item._id}>
                             <div className='crop'> 
                                 <img src={urlImages()+'/uploads/productos/'+item.product_src}  alt="..." />

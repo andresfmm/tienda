@@ -34,7 +34,8 @@ export const CrearProducto = () => {
    const result = await dispatch( createProduct( { product_imagen: file, product_name, product_description, product_price } ) );
    
    if (result.ok) {
-
+    
+    setSrcImage( '' )
     let alerta = {
       title: 'Producto creado',
       footer: 'test tienda react y node by meza',
